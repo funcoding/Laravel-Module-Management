@@ -1,0 +1,112 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use DummyInterfaceNamespace;
+use DummyRequestNamespace;
+
+class DummyClass extends Controller
+{
+
+    protected $repository;
+
+    public function __construct(DummyInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $records = $this->repository
+                    ->orderBy('id', 'DESC')
+                    ->paginate();
+
+        return view('dummyview.index', compact('records'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('dummyview.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \DummyRequestNamespace  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(DummyRequest $request)
+    {
+        return $this->repository->save($request);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $record = $this->repository->findorfail($id);
+
+        return view('dummyview.show', compact('record'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $record = $this->repository->findorfail($id);
+
+        return view('dummyview.update', compact('record'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \DummyRequestNamespace  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(DummyRequest $request,  $id)
+    {
+        return $this->repository->save($request, $id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $record = $this->repository->findorfail($id);
+
+        if ( $record->delete() )
+        {
+
+        }
+
+        return back();
+    }
+}

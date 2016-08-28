@@ -1,0 +1,22 @@
+{
+    "name": "sarav/module",
+    "description": "A simple package to set up module management in laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Saravanan Sampath kumar",
+            "email": "me@sarav.co"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Sarav\\": "src/Module/"
+        }
+    },
+    "require": {
+        "php": ">=5.6.4",
+        "laravel/framework": "5.3.*",
+        "laravelcollective/html": "5.2.*"
+    }
+}

@@ -1,0 +1,38 @@
+<?php
+
+namespace DummyNamespace;
+
+use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use DummyInterfaceNamespace;
+use DummyModelNamespace;
+
+/**
+ * Class DummyModelNamespace
+ * @package DummyNamespace
+ */
+class DummyClass extends BaseRepository implements DummyInterface
+{
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return DummyModel::class;
+    }
+
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function save($request, $record = null)
+    {
+        
+    }
+}
